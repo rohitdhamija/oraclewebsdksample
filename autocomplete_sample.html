@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Oracle Web SDK Sample</title>
+     <script src="scripts/settings.js"></script>
+     <script>
+        var chatWidgetSettings = {
+            URI: YOUR_URI,
+            channelId: YOUR_CHANNELID,
+            userId: 'Neo',
+            enableAutocomplete: true
+        };
+        !function (globalObj, doc, library, name) {
+            function initiateSDK() {
+                setTimeout(function () {
+                    globalObj[name] = Object.assign(WebSDK);
+                    globalObj[name] = new globalObj[name](chatWidgetSettings);
+                    globalObj[name].connect().then(() => {
+                      }, (reason) => {
+                    });
+                }, 2000);
+            }
+            try {
+                var scripts = doc.getElementsByTagName("script")[0],
+                    lib = doc.createElement("script");
+                lib.async = true;
+                lib.src = library;
+                lib.onReady = initiateSDK();
+                scripts.parentNode.insertBefore(lib, scripts);
+
+            } catch (e) {
+            }
+        }(window, document, "scripts/web-sdk.js", "Bots");
+
+    </script> 
+</head>
+
+<body>
+    <h3 align="center">This is a sample page having ODA web widget built using Oracle Web SDK</h3>
+</body>
+
+</html>

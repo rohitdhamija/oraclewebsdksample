@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Oracle Web SDK Sample</title>
+   <script src="scripts/settings.js"></script>
+     <script>
+        var chatWidgetSettings = {
+            URI: YOUR_URI,
+            channelId: YOUR_CHANNELID,
+            enableAutocomplete: true,
+            font: '14px "Helvetica Neue", Helvetica, Arial, sans-serif', //layout modification property
+            height: '60vh', //layout modification property
+            width: '20vw',  //layout modification property
+             colors: {    //custom colors property  
+                branding: '#01538A',
+                text: '#B20637'
+            },
+            botButtonIcon: 'images/Robot.png', // custom icons property
+            logoIcon: 'images/logo.png', // custom icons property
+            botIcon: 'images/Robot.png',       // custom icons property 
+            personIcon: 'images/userIcon.png', // custom icons property
+            locale: 'en-us',
+            i18n: {
+ 
+                'en-us': {
+                chatTitle: 'Support'          // custom text property
+                }
+            }
+                
+         };
+        !function (globalObj, doc, library, name) {
+            function initiateSDK() {
+                setTimeout(function () {
+                    globalObj[name] = Object.assign(WebSDK);
+                    globalObj[name] = new globalObj[name](chatWidgetSettings);
+                    globalObj[name].connect().then(() => {
+
+                    }, (reason) => {
+                        console.log("Connection failed");
+                        console.log(reason);
+                    });
+                }, 2000);
+            }
+            try {
+                var scripts = doc.getElementsByTagName("script")[0],
+                lib = doc.createElement("script");
+                lib.async = true;
+                lib.src = library;
+                lib.onReady = initiateSDK();
+                scripts.parentNode.insertBefore(lib, scripts);
+
+            } catch (e) {
+                console.error("Could not load the chat widget");
+            }
+        }(window, document, "scripts/web-sdk.js", "Bots");
+
+    </script>
+</head>
+
+<body>
+    <h3 align="center">This is a sample page having ODA web widget built using Oracle Web SDK</h3>
+</body>
+
+</html>
