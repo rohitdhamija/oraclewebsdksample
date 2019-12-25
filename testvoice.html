@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Oracle Web SDK Sample Web page</title>
+
+<script>
+    var chatWidgetWebSettings = {
+        URI: 'oda-5b8277bc39c14499bed752a6fdd94c30-s0.data.digitalassistant.oci.oc-test.com',
+        channelId: '128c65cb-e967-499e-9a95-473ad9f2edad',
+        userId: 'rohitdhamija',
+        enableSpeech: true
+    };
+    function initSdk(name) {
+        // Default name is Bots
+        if (!name) {
+            name = 'Bots';
+        }
+        setTimeout(() => {
+            window[name] = new WebSDK(chatWidgetWebSettings);  // Initiate library with configuration
+            window[name].connect()                          // Connect to server
+                .then(() => {
+                    console.log("Connection Successful");
+                })
+                .catch((reason) => {
+                    console.log("Connection failed");
+                    console.log(reason);
+                });
+        });
+    }
+</script>
+<script src="scripts/web-sdk.js" onload="initSdk('Bots')"></script> 
+    
+</head>
+<body>
+
+<h1>My First Oracle Web SDK sample</h1>
+
+<p>This page is using the Oracle Digital Assistant's Client SDK for JavaScript to add live messaging!</p>
+
+
+</body>
+
+      
+</html>

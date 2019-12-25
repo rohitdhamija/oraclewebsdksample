@@ -1,2 +1,2 @@
-const YOUR_URI = 'idcs-oda-48a59dc1d22c4fb88ce12887752f5e88-d0.data.digitalassistant.oci.oc-test.com';
-const YOUR_CHANNELID = 'ca6ed977-1593-4028-b27e-3702b0778745';
+const YOUR_URI = 'oda-5b8277bc39c14499bed752a6fdd94c30-s0.data.digitalassistant.oci.oc-test.com';
+const YOUR_CHANNELID = 'dc45b973-d64a-4cc2-ad5b-2f8263832425';
