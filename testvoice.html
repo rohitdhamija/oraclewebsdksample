@@ -4,7 +4,7 @@
   <title>Oracle Web SDK Sample Web page</title>
      <script src="scripts/settings.js"></script>
      <script>
-        var chatWidgetWebSettings = {
+        var chatWidgetSettings = {
             URI: YOUR_URI,
             channelId: YOUR_CHANNELID,
 
@@ -18,7 +18,7 @@
             name = 'Bots';
         }
         setTimeout(() => {
-            window[name] = new WebSDK(chatWidgetWebSettings);  // Initiate library with configuration
+            window[name] = new WebSDK(chatWidgetSettings);  // Initiate library with configuration
             window[name].connect()                          // Connect to server
                 .then(() => {
                     console.log("Connection Successful");
@@ -29,7 +29,7 @@
                 });
         });
     }
-</script>s
+</script>
 <script src="scripts/web-sdk.js" onload="initSdk('Bots')"></script> 
     
 </head>
