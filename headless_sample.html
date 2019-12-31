@@ -105,40 +105,20 @@
                   background: #ccc;
                }
 					
-               #status.fail {
-                  background: #c00;
-               }
-					
-               #status.success {
-                  background: #0c0;
-               }
-					
-               #status.offline {
-                  background: #c00;
-               }
-					
-               #status.online {
-                  background: #0c0;
-               }
-					
-               #html5badge {
-                  margin-left: -30px;
-                  border: 0;
-               }
-					
-               #html5badge img {
-                  border: 0;
-               }
+     
+			
             </style>
 				
             <article>
 				
-               <form onsubmit = "addMessage(); return false;">
+               <p id = "status">Not connected</p>
+                
+                <form onsubmit = "addMessage(); return false;">
                   <input type = "text" id = "chat" placeholder = "type and press 
                   enter to chat" />
                </form>
 					
-               <p id = "status">Not connected</p>
+               
               
                <ul id = "botResponse"></ul>
 					
@@ -151,18 +131,7 @@
                form = chat.form;
                state = document.getElementById("status");
 					
-               if (window.WebSocket === undefined) {
-                  state.innerHTML = "sockets not supported";
-                  state.className = "fail";
-               }else {
-                  if (typeof String.prototype.startsWith != "function") {
-                     String.prototype.startsWith = function (str) {
-                        return this.indexOf(str) == 0;
-                     };
-                  }
-						
-                  window.addEventListener("load", onLoad, false);
-               }
+                window.addEventListener("load", onLoad, false);
 					
                function onLoad() {
                    Bots.on('networkstatuschange', networkStatusCallbackFunction);
@@ -180,7 +149,7 @@
                     //1 - WebSocket.OPEN - Open
                     //2 - WebSocket.CLOSING - Closing
                     //3 - WebSocket.CLOSED - Closed
-                    var msg = "WebSocket status: ";
+                    var msg = "Network status: ";
                     switch(status)
                     {
                         case 0:
