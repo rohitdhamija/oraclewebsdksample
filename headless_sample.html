@@ -51,7 +51,18 @@
                #chat { width: 97%; }
                .message { font-weight: bold; }
                .message:before { content: ' '; color: #bbb; font-size: 14px; }
-					
+
+           #voicetotext {
+                  overflow: auto;
+                  max-height: 300px;
+                  list-style: none;
+                  padding: 0;
+               }                
+         #voicetotext li{
+                   border-top: 1px solid #ccc;
+                  margin: 0;
+                  padding: 10px 0;
+               }					
                #botResponse {
                   overflow: auto;
                   max-height: 300px;
@@ -112,7 +123,8 @@
             <article>
 				
                <p id = "status">Not connected</p>
-                
+                <button type="button" onclick="startVoiceRecording()">Start Recording</button>
+                 <ul id = "voicetotext"></ul>
                 <form onsubmit = "addMessage(); return false;">
                   <input type = "text" id = "chat" placeholder = "type and press 
                   enter to chat" />
@@ -127,6 +139,7 @@
             <script>
               // connected = document.getElementById("connected");
                botResponse= document.getElementById("botResponse");
+               voicetotext= document.getElementById("voicetotext");
                chat = document.getElementById("chat");
                form = chat.form;
                state = document.getElementById("status");
@@ -136,24 +149,16 @@
                function onLoad() {
                    Bots.on('networkstatuschange', networkStatusCallbackFunction);
                    Bots.on('message:received', messageReceivedCallbackFunction);
-                   Bots.on('onSpeechRecognition', speechRecognition);
-                   Bots.on('onSpeechNetworkChange', speechNetworkChange);
+                  
                    
                }
-                function speechRecognition()
-                {
-                    alert("on speech recognition");
-                }
                 
-                function speechNetworkChange()
-                {
-                    alert("on speech n/w change");
-                }
-                
+           
                 function messageReceivedCallbackFunction(message)
                 {
                     //alert(JSON.stringify(message));
                     botResponse.innerHTML = message.messagePayload.text;
+                    Bots.stopVoiceRecording();
                 }
                 function networkStatusCallbackFunction(status)
                 {
@@ -194,12 +199,21 @@
                }
                 
                function startVoiceRecording() {
+                   //alert("startVoiceRecording");
                    Bots.startVoiceRecording((data) => {
     let recognizedText = '';
     if (data && (data.event === 'finalResult' || data.event === 'partialResult')) {
         if (data.nbest && data.nbest.length > 0) {
             recognizedText = data.nbest[0].utterance;
             console.log(recognizedText);
+            voicetotext.innerHTML = recognizedText;   
+            if(data.event === 'finalResult')
+                {
+                     voicetotext.innerHTML = recognizedText;         
+                     Bots.sendMessage(recognizedText);
+                     
+                }
+            
         }
     }
 }, (status, error) => {
@@ -210,8 +224,9 @@
         // Connection closed
         console.log("connection closed: "+status);
     }
-})
-               }    
+});
+               }
+                   
 					
             </script>
 				
