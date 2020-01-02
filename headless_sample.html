@@ -135,8 +135,20 @@
 					
                function onLoad() {
                    Bots.on('networkstatuschange', networkStatusCallbackFunction);
-                   Bots.on('message:received', messageReceivedCallbackFunction)
+                   Bots.on('message:received', messageReceivedCallbackFunction);
+                   Bots.on('onSpeechRecognition', speechRecognition);
+                   Bots.on('onSpeechNetworkChange', speechNetworkChange);
+                   
                }
+                function speechRecognition()
+                {
+                    alert("on speech recognition");
+                }
+                
+                function speechNetworkChange()
+                {
+                    alert("on speech n/w change");
+                }
                 
                 function messageReceivedCallbackFunction(message)
                 {
@@ -180,6 +192,26 @@
                    //alert(message);
                   Bots.sendMessage(message);
                }
+                
+               function startVoiceRecording() {
+                   Bots.startVoiceRecording((data) => {
+    let recognizedText = '';
+    if (data && (data.event === 'finalResult' || data.event === 'partialResult')) {
+        if (data.nbest && data.nbest.length > 0) {
+            recognizedText = data.nbest[0].utterance;
+            console.log(recognizedText);
+        }
+    }
+}, (status, error) => {
+    if (status === WebSocket.OPEN) {
+        // Connection established
+        console.log("connection established: "+status);
+    } else if (status === WebSocket.CLOSED) {
+        // Connection closed
+        console.log("connection closed: "+status);
+    }
+})
+               }    
 					
             </script>
 				
