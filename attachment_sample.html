@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Oracle Web SDK Sample Web page</title>
+     <script src="scripts/settings.js"></script>
+     <script>
+        var chatWidgetSettings = {
+            URI: YOUR_URI,
+            channelId: YOUR_CHANNELID,
+
+        userId: 'rohitdhamija',
+        enableSpeech: true,
+        enableBotAudioResponse: true,
+        isDebugMode: true,
+        enableHeadless: true    
+    };
+    function initSdk(name) {
+        // Default name is Bots
+        if (!name) {
+            name = 'Bots';
+        }
+        setTimeout(() => {
+            window[name] = new WebSDK(chatWidgetSettings);  // Initiate library with configuration
+            window[name].connect()                          // Connect to server
+                .then(() => {
+                    console.log("Connection Successful");
+                })
+                .catch((reason) => {
+                    console.log("Connection failed");
+                    console.log(reason);
+                });
+        });
+    }
+</script>
+<script src="scripts/web-sdk.js" onload="initSdk('Bots')"></script> 
+	<script>
+		   window.addEventListener("load", onLoad, false);
+					
+               function onLoad() {
+                  console.log("inside onLoad");
+                   Bots.on('message:sent', messageSentCallbackFunction);
+                  
+                   
+               }
+		 
+		 		function messageSentCallbackFunction(message){
+					alert(JSON.stringify(message));
+                    console.log( message.messagePayload.text);
+				}
+
+    </script> 
+</head>
+
+<body>
+    <h3 align="center">This is a sample page having ODA web widget built using Oracle Web SDK</h3>
+</body>
+
+</html>
