@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Oracle Web SDK Sample Web page</title>
+	<script src="https://polyfill.io/v3/polyfill.js?features=Number.isInteger%2Cdefault"></script>
      <script src="scripts/settings.js"></script>
      <script>
         var chatWidgetSettings = {
@@ -17,23 +18,22 @@
         enableBotAudioResponse: true,
         isDebugMode: true
     };
-    function initSdk(name) {
-        // Default name is Bots
-        if (!name) {
-            name = 'Bots';
-        }
-        setTimeout(() => {
-            window[name] = new WebSDK(chatWidgetSettings);  // Initiate library with configuration
-            window[name].connect()                          // Connect to server
-                .then(() => {
-                    console.log("Connection Successful");
-                })
-                .catch((reason) => {
-                    console.log("Connection failed");
-                    console.log(reason);
-                });
-        });
-    }
+function initSdk(name) {
+// Default name is Bots
+if (!name)
+{ name = 'Bots'; }
+setTimeout(function (){
+const Bots = new WebSDK(chatWidgetSettings); // Initiate library with configuration
+Bots.connect() // Connect to server
+.then(function ()
+{ console.log("Connection Successful"); }
+)
+.catch(function (reason)
+{ console.log("Connection failed"); console.log(reason); }
+);
+window[name] = Bots;
+});
+}
 </script>
 <script src="scripts/web-sdk.js" onload="initSdk('Bots')"></script> 
     
