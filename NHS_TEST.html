@@ -6,8 +6,8 @@
     <script src="scripts/NHS_Test.js"></script>
      <script>
         var chatWidgetSettings = {
-            URI: YOUR_URI,
-            channelId: YOUR_CHANNELID,
+            URI: "oda-db591e3f7b5f4a9290f3244ef44c516f-s0.data.digitalassistant.oci.oc-test.com",
+            channelId: "8aec8953-f710-422c-8c6c-13a2656f8647",
             enableClearMessage: true,
              enableTimestamp: true,
             showConnectionStatus: true,
@@ -34,6 +34,14 @@ Bots.connect() // Connect to server
 window[name] = Bots;
 });
 }
+
+Bots.sendAttachment(file)
+    .then((result) => {
+        console.log('File uploaded successfully.');
+    })
+    .catch((reason) => {
+        console.log(reason);
+    });
 </script>
 <script src="scripts/web-sdk.js" onload="initSdk('Bots')"></script> 
     
